@@ -176,6 +176,26 @@ program
     console.log(`Completed in last 7 days: ${stats.completedLastWeek}`);
   });
 
+program
+  .command('export [filename]')
+  .description('Export tasks to CSV file')
+  .option('-s, --status <status>', 'Filter by status')
+  .option('-p, --priority <priority>', 'Filter by priority')
+  .option('-o, --overdue', 'Export only overdue tasks')
+  .action((filename, options) => {
+    try {
+      const filters = {};
+      if (options.status) filters.status = options.status;
+      if (options.priority) filters.priority = options.priority;
+      if (options.overdue) filters.overdue = true;
+
+      const exportedCount = taskManager.exportTasks(filename || 'tasks.csv', filters);
+      console.log(`Exported ${exportedCount} tasks to ${filename || 'tasks.csv'}`);
+    } catch (error) {
+      console.log('Failed to export tasks:', error.message);
+    }
+  });
+
 program.parse(process.argv);
 
 // If no arguments, show help

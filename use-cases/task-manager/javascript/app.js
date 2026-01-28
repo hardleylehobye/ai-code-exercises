@@ -148,6 +148,16 @@ class TaskManager {
       completedLastWeek: completedRecently.length
     };
   }
+
+  exportTasks(filePath = 'tasks.csv', filters = {}) {
+    try {
+      const exportedCount = this.storage.exportToCSV(filePath, filters);
+      return exportedCount;
+    } catch (error) {
+      console.error(`Failed to export tasks: ${error.message}`);
+      throw error;
+    }
+  }
 }
 
 module.exports = { TaskManager };

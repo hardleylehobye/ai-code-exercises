@@ -96,6 +96,63 @@ class TaskStorage {
   getOverdueTasks() {
     return Object.values(this.tasks).filter(task => task.isOverdue());
   }
+
+  convertTasksToCSV(tasks) {
+    const headers = ['ID', 'Title', 'Description', 'Priority', 'Status', 'Due Date', 'Created At', 'Updated At', 'Completed At', 'Tags'];
+    const csvRows = [headers.join(',')];
+
+    tasks.forEach(task => {
+      const row = [
+        task.id,
+        `"${this.escapeCsvField(task.title)}"`,
+        `"${this.escapeCsvField(task.description)}"`,
+        task.priority,
+        task.status,
+        task.dueDate ? task.dueDate.toISOString().split('T')[0] : '',
+        task.createdAt.toISOString().split('T')[0],
+        task.updatedAt.toISOString().split('T')[0],
+        task.completedAt ? task.completedAt.toISOString().split('T')[0] : '',
+        `"${task.tags.join(';')}"`
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    return csvRows.join('\n');
+  }
+
+  escapeCsvField(field) {
+    return field.replace(/"/g, '""').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+  }
+
+  exportToCSV(filePath = 'tasks.csv', filters = {}) {
+    try {
+      const tasks = this.getFilteredTasks(filters);
+      const csv = this.convertTasksToCSV(tasks);
+      fs.writeFileSync(filePath, csv);
+      return tasks.length;
+    } catch (error) {
+      console.error(`Error exporting to CSV: ${error.message}`);
+      throw error;
+    }
+  }
+
+  getFilteredTasks(filters) {
+    let tasks = Object.values(this.tasks);
+
+    if (filters.status) {
+      tasks = tasks.filter(task => task.status === filters.status);
+    }
+
+    if (filters.priority) {
+      tasks = tasks.filter(task => task.priority === parseInt(filters.priority));
+    }
+
+    if (filters.overdue) {
+      tasks = tasks.filter(task => task.isOverdue());
+    }
+
+    return tasks;
+  }
 }
 
 module.exports = { TaskStorage };

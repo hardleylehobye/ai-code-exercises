@@ -1,0 +1,58 @@
+[
+  {
+    "id": "c94e515b-37b9-47a8-82ec-ee4fe4af7e08",
+    "title": "Test Task 1",
+    "description": "First test task",
+    "priority": "2",
+    "status": "DONE",
+    "createdAt": "2026-01-28T19:36:38.355Z",
+    "updatedAt": "2026-01-28T19:39:34.153Z",
+    "dueDate": "2026-01-30T00:00:00.000Z",
+    "completedAt": null,
+    "tags": [
+      "test",
+      "sample"
+    ]
+  },
+  {
+    "id": "7ba1f118-1d8b-4e9b-b2d6-da03c2208d37",
+    "title": "Urgent Task",
+    "description": "High priority task",
+    "priority": "4",
+    "status": "todo",
+    "createdAt": "2026-01-28T19:36:44.177Z",
+    "updatedAt": "2026-01-28T19:36:44.177Z",
+    "dueDate": "2026-01-25T00:00:00.000Z",
+    "completedAt": null,
+    "tags": [
+      "urgent",
+      "work"
+    ]
+  },
+  {
+    "id": "7fd600a0-85f4-472c-b46b-f11075988960",
+    "title": "Simple Task",
+    "description": "Low priority task",
+    "priority": "1",
+    "status": "todo",
+    "createdAt": "2026-01-28T19:36:48.034Z",
+    "updatedAt": "2026-01-28T19:36:48.034Z",
+    "dueDate": null,
+    "completedAt": null,
+    "tags": [
+      "personal"
+    ]
+  },
+  {
+    "id": "b601168a-be53-4271-8f0e-fc8a010702d3",
+    "title": "My task",
+    "description": "",
+    "priority": 2,
+    "status": "todo",
+    "createdAt": "2026-01-28T19:49:17.260Z",
+    "updatedAt": "2026-01-28T19:49:17.260Z",
+    "dueDate": null,
+    "completedAt": null,
+    "tags": []
+  }
+]
