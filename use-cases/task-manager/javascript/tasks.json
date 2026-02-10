@@ -54,5 +54,20 @@
     "dueDate": null,
     "completedAt": null,
     "tags": []
+  },
+  {
+    "id": "66cdbedc-b09f-4a2c-9b19-617857681d48",
+    "title": "Critical bug fix",
+    "description": "Fix critical production bug",
+    "priority": "4",
+    "status": "todo",
+    "createdAt": "2026-02-10T11:17:36.124Z",
+    "updatedAt": "2026-02-10T11:17:36.124Z",
+    "dueDate": "2026-02-11T00:00:00.000Z",
+    "completedAt": null,
+    "tags": [
+      "blocker",
+      "critical"
+    ]
   }
 ]

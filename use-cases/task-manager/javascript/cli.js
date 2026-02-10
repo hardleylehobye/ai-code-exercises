@@ -196,6 +196,48 @@ program
     }
   });
 
+program
+  .command('top')
+  .description('List tasks by priority order')
+  .option('-l, --limit <limit>', 'Number of tasks to show', '5')
+  .option('-s, --show-scores', 'Show priority scores')
+  .action((options) => {
+    const tasks = taskManager.storage.getAllTasks();
+    const limit = parseInt(options.limit) || 5;
+    const topTasks = taskManager.getTopPriorityTasks(tasks, limit);
+    
+    if (topTasks.length > 0) {
+      console.log(`Top ${topTasks.length} priority tasks:\n`);
+      topTasks.forEach((task, index) => {
+        const score = taskManager.calculateTaskScore(task);
+        const scoreText = options.showScores ? ` [Score: ${score}]` : '';
+        console.log(`${index + 1}.${scoreText} ${formatTask(task)}`);
+        console.log('-'.repeat(50));
+      });
+    } else {
+      console.log('No tasks found.');
+    }
+  });
+
+program
+  .command('score <task_id>')
+  .description('Calculate and show priority score for a specific task')
+  .action((taskId) => {
+    const task = taskManager.getTaskDetails(taskId);
+    if (task) {
+      const score = taskManager.calculateTaskScore(task);
+      console.log(`Task: ${task.title}`);
+      console.log(`Priority Score: ${score}`);
+      console.log(`Priority: ${task.priority}`);
+      console.log(`Status: ${task.status}`);
+      console.log(`Due Date: ${task.dueDate ? task.dueDate.toISOString().split('T')[0] : 'No due date'}`);
+      console.log(`Tags: ${task.tags.length > 0 ? task.tags.join(', ') : 'No tags'}`);
+      console.log(`Last Updated: ${task.updatedAt.toISOString().split('T')[0]}`);
+    } else {
+      console.log('Task not found.');
+    }
+  });
+
 program.parse(process.argv);
 
 // If no arguments, show help
